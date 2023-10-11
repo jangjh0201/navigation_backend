@@ -6,15 +6,12 @@ import lombok.Getter;
 @Getter
 public class Vertex {
 
-    private String name;
-
     private double x;
 
     private double y;
 
     @Builder
-    public Vertex(String name, double x, double y) {
-        this.name = name;
+    public Vertex(double x, double y) {
         this.x = x;
         this.y = y;
     }

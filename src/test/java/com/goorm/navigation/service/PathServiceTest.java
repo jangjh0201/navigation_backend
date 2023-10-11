@@ -7,17 +7,13 @@ import java.util.List;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
-import org.springframework.stereotype.Service;
+import org.junit.jupiter.api.Test;
 
 import com.goorm.navigation.domain.Vertex;
 
-import lombok.RequiredArgsConstructor;
-
-@Service
-@RequiredArgsConstructor
-public class PathService {
-
-    public List<Integer> getShortestPath(double x1, double x2, double y1, double y2) {
+public class PathServiceTest {
+    @Test
+    public void getShortestPath() {
         WeightedMultigraph<Integer, DefaultWeightedEdge> graph = new WeightedMultigraph<>(DefaultWeightedEdge.class);
 
         HashMap<Integer, Vertex> map = new HashMap<>();
@@ -35,6 +31,21 @@ public class PathService {
         map.put(12, new Vertex(7.8, -2.2));
         map.put(13, new Vertex(-8.4, -3.3));
         map.put(14, new Vertex(7.5, -4));
+
+        // nodes.add(0, new Vertex(-6.6, 3));
+        // nodes.add(1, new Vertex(-5.2, 3));
+        // nodes.add(2, new Vertex(-2.1, 2.3));
+        // nodes.add(3, new Vertex(0.8, 2.3));
+        // nodes.add(4, new Vertex(9, 4));
+        // nodes.add(5, new Vertex(-4.7, 0.3));
+        // nodes.add(6, new Vertex(1, 0));
+        // nodes.add(7, new Vertex(-1.9, -1.1));
+        // nodes.add(8, new Vertex(-3.3, -2.5));
+        // nodes.add(9, new Vertex(1, -2.4));
+        // nodes.add(10, new Vertex(3.5, -2));
+        // nodes.add(11, new Vertex(7.8, -2.2));
+        // nodes.add(12, new Vertex(-8.4, -3.3));
+        // nodes.add(13, new Vertex(7.5, -4));
 
         for (int key : map.keySet()) {
             graph.addVertex(key);
@@ -66,13 +77,15 @@ public class PathService {
         graph.setEdgeWeight(graph.addEdge(10, 11), 2.8);
         graph.setEdgeWeight(graph.addEdge(10, 14), 7);
         graph.setEdgeWeight(graph.addEdge(11, 12), 4);
-        graph.setEdgeWeight(graph.addEdge(11, 14), 5.2);
         graph.setEdgeWeight(graph.addEdge(12, 14), 1.8);
 
         DijkstraShortestPath<Integer, DefaultWeightedEdge> shortestPath = new DijkstraShortestPath<>(graph);
-        List<Integer> path = shortestPath.getPath(3, 14).getVertexList();
-        double distance = shortestPath.getPathWeight(3, 14);
+        List<Integer> path = shortestPath.getPath(1, 14).getVertexList();
+        double distance = shortestPath.getPathWeight(1, 14);
 
-        return path;
+        for (int p : path) {
+            System.out.println(p);
+        }
+        System.out.println(distance);
     }
 }
